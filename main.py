@@ -7,14 +7,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 
 
-service = Service('/usr/local/bin/msedgedriver')
+# driver = webdriver.Chrome(options=options)
+# service = Service('/usr/local/bin/msedgedriver')
+service = Service('chromedriver.exe')
 service.start()
-dr = webdriver.Remote(service.service_url)
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+dr = webdriver.Remote(service.service_url, options=options)
 dr.implicitly_wait(10) # seconds
 
 
 def rua_once(url):
     dr.get(url)
+    dr.refresh()
     for _ in range(10):
         dr.find_element(By.CLASS_NAME, "rt-checkbox").click()
         dr.find_element("xpath", "//button").click()
