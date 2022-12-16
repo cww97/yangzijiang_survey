@@ -1,4 +1,5 @@
 import os
+import time
 from tqdm import tqdm
 from configparser import ConfigParser
 
@@ -20,6 +21,9 @@ dr.implicitly_wait(10) # seconds
 def rua_once(url):
     dr.get(url)
     dr.refresh()
+    time.sleep(0.5)
+    js = "document.getElementsByClassName('rt-button--large')[0].style.display=\'block\';"
+    dr.execute_script(js)
     for _ in range(10):
         dr.find_element(By.CLASS_NAME, "rt-checkbox").click()
         dr.find_element("xpath", "//button").click()
