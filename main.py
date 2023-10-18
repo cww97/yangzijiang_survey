@@ -24,9 +24,12 @@ def rua_once(url):
     time.sleep(0.5)
     js = "document.getElementsByClassName('rt-button--large')[0].style.display=\'block\';"
     dr.execute_script(js)
-    for _ in range(10):
+
+    finished = False
+    while not finished:
         dr.find_element(By.CLASS_NAME, "rt-checkbox").click()
         dr.find_element("xpath", "//button").click()
+        finished = dr.find_element(By.CLASS_NAME, "rt-button--bottom__text").text == "提交"
 
 
 def read_config():
