@@ -37,8 +37,10 @@ def rua_once(conf):
                 ans = min(int(ans), len(options))
                 options[ans - 1].click()
 
-        dr.find_element("xpath", "//button").click()
         finished = dr.find_element(By.CLASS_NAME, "rt-button--bottom__text").text == "提交"
+        if finished:
+            time.sleep(0.5)
+        dr.find_element("xpath", "//button").click()
         idx += 1
         idx = min(idx, len(conf['answer']) - 1)
 
